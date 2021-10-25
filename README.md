@@ -51,46 +51,69 @@ under the License.
 建议在Debian9/10的环境下安装后端
 ### 安装
 安装libsodium
+```
 wget -N --no-check-certificate https://raw.githubusercontent.com/aipeach/doubi/master/libsodium.sh && chmod +x libsodium.sh && bash libsodium.sh
+```
 Debian / Ubuntu:
+```
 apt update && apt install -y python3-pip libffi-dev libssl-dev git nano
+```
 
 下载后端源码
+```
 git clone -b manyuser https://github.com/Anankke/shadowsocks-mod.git /root/shadowsockscd shadowsocks
+```
 
 安装依赖
+```
 pip3 install -r requirements.txt
+```
 
 ### 使用
 
 创建配置文件
+```
 cp apiconfig.py userapiconfig.pycp config.json user-config.json
+```
 
 修改配置
+```
 nano userapiconfig.py
+```
 
 运行后端
 
 调试运行
+```
 python3 server.py
+```
 
 后台运行
+```
 ./run.sh
+```
 
 ###  配置 systemd
+```
 cp -r /root/shadowsocks/ssr.service /etc/systemd/system/
+```
 如需启动多个后端只需复制一份 ssr.service 改成不同文件名并修改 WorkingDirectory= 即可
 
 多开后端
 如下例
+```
 cp -r /root/shadowsocks /root/aipeachcp -r /root/shadowsocks/ssr.service /etc/systemd/system/aipeach.service
+```
 
 启动程序并加入开机自启动
+```
 systemctl start ssrsystemctl enable ssrecho "sshd: ALL" > /etc/hosts.allow#防止 auto block 了自己无法连接 ssh
+```
 
 添加后端DNS解锁流媒体
+```
 echo -e "8.8.8.8\n" > /root/shadowsocks/dns.conf
-
+```
 填写DNS解锁的服务器IP即可解锁流媒体
 
 ### userapiconfig.py各项配置信息
